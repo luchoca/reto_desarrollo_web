@@ -1,4 +1,5 @@
 package com.sofka.Software.models;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
@@ -29,8 +30,7 @@ public class ListModel {
      * referencia la llave foranea de la clase lista tarea modelo
      */
     @JsonBackReference
-    private List<ListTaskModel>ListTask = new ArrayList<>();
-
+    private List<ListTaskModel> ListTask = new ArrayList<>();
 
 
 }

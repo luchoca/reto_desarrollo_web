@@ -4,11 +4,10 @@ import com.sofka.Software.models.ListTaskModel;
 import com.sofka.Software.services.ListTaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@CrossOrigin
+@CrossOrigin(origins = {"http://localhost:5500", "http://127.0.0.1:5500"} )
 @RestController
 public class ListTaskController {
     @Autowired
@@ -26,8 +25,7 @@ public class ListTaskController {
 
     @PutMapping(path = "/listTask/{id}")
     public ListTaskModel updatelistTask(@RequestBody ListTaskModel listTask, @PathVariable(value="id") Long id ) {
-        listTaskService.updateListTask(id, listTask);
-        return null;
+       return listTaskService.updateListTask(id, listTask);//retornamos
     }
 
     /**
@@ -35,8 +33,8 @@ public class ListTaskController {
      * Revisa si esto que propongo está bien o no, si no está bien ¿Como lo solucionas?
      */
 
-    // @DeleteMapping(path = "/listTask/{id}")
-    // public void deletelistTask(@PathVariable("id")Long id){
-       // listTaskService.deleteListTask(id);
-    //}
-//}
+     @DeleteMapping(path = "/listTask/{id}")
+     public void deletelistTask(@RequestBody ListTaskModel listTask,@PathVariable(value = "id")Long id){
+         listTaskService.deleteListTask(listTask, id); //le pise requuest body , vlaue en el path y le agrege el paramentro lisTask
+    }
+}
