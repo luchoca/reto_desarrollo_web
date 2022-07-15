@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ListController {
     @Autowired
-    private ListService listService;
+    private ListService listService; //se cambio el listRepository por listService
 
     //get
     @GetMapping(value = "/listas")

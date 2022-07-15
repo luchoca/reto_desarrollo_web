@@ -34,7 +34,7 @@ public class ListTaskController {
      */
 
      @DeleteMapping(path = "/listTask/{id}")
-     public void deletelistTask(@RequestBody ListTaskModel listTask,@PathVariable(value = "id")Long id){
-         listTaskService.deleteListTask(listTask, id); //le puse requuest body , vlaue en el path y le agrege el paramentro lisTask
+     public void deletelistTask(@PathVariable(value = "id")Long id){
+         listTaskService.deleteListTask(id); //vlaue en el path
     }
 }

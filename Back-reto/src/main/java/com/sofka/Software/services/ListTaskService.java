@@ -29,10 +29,9 @@ public class ListTaskService {
     /**
      * metodo eliminar subtarea
      *
-     * @param listTask
      * @param id
      */
-    public void deleteListTask(ListTaskModel listTask, Long id){
+    public void deleteListTask(Long id){
         listTaskRepository.delete(get(id));
     }
     /**

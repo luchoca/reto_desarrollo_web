@@ -123,7 +123,6 @@ d.addEventListener("click", (e) => {
       e.target.parentElement.parentElement.children[0].textContent
     );
   }
-
   if (e.target.classList[0] == "editar") {
     /** editar subtarea , al pulsar el boton editar , muestra en el input con nombre de la tare actual* me permite*/
     e.preventDefault();
@@ -197,38 +196,21 @@ async function crearSubLista({ nombre, id }) {
   }
 }
 //eliminar subTarea
-// async function eliminarSubTarea(id) {
-//     let options = {
-//         method: "DELETE",
-
-//     mostrarList()
-// }
-
 async function eliminarSubTarea(id) {
-  console.log(id);
-  if (id) {
-    let options = {
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json; charset=utf-8",
-        },
+  let options = {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json; charset=utf-8",
       },
-      res = await fetch(`${url}/task/${id}`, options);
-    json = await res.json();
+    },
+    res = await fetch(`${url}/listTask/${id}`, options);
 
-    mostrarList();
-  }
+  mostrarList();
 }
-// async function eliminarTarea(id) {
-//   console.log(id);
-//   let options = {
-//       method: "DELETE",
-//       headers: {
-//         "Content-type": "application/json; charset=utf-8",
-//       },
-//     },
-//     res = await fetch(`${url}/task/${id}`, options);
-//   // json = await res.json();
 
-//   mostrarList();
-// }
+/**
+ * Editar sub lista
+ * @param {*} id1
+ * @param {*} id2
+ * @param {*} nombre
+ */
