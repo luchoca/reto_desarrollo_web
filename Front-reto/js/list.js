@@ -10,10 +10,12 @@ let resultado = "";
 let resultadoSub = "";
 let subtarea = {};
 
-//funcon boton crear , permite guardar en el input el nombre de la nueva lista a crear
+//funcion boton crear , permite guardar en el input el nombre de la nueva lista a crear
 $crear.addEventListener("click", (e) => {
   e.preventDefault();
   crearList(d.getElementById("inputTarea").value);
+
+  //aca tengo que poner algo para que el input se actualice
 });
 //Funcion crear lista , consulta la ruta del fetch y realiza el metodo post con los datos
 async function crearList(lista) {
@@ -28,6 +30,8 @@ async function crearList(lista) {
         }),
       },
       res = await fetch(`${url}/task`, options);
+    json = await res.json();
+
     mostrarList();
   } else {
     alert("ingrese una tarea por favor!");
@@ -51,12 +55,22 @@ const mostrar = (listas) => {
                 <td class="id">${sub.id}</td>
                 <td class="Tarea">${sub.name}</td>
                 <td class="completado">
-                    <input class="validar form-check-input" id="validar${sub.id}" type="checkbox" id="flexSwitchCheckDefault">
+                    <input class="validar form-check-input" id="validar${
+                      sub.id
+                    }" type="checkbox" id="flexSwitchCheckDefault ${
+        sub.completed ? "checked" : "" //mirar esto
+      }">
                     <label class="form-check-label" for="flexSwitchCheckDefault"></label>
                 </td>
                 <td class="opciones">
-                    <button class="editar btn btn-info" value="${sub.id}" type="button" id="editar${sub.id}" class="editar btn btn-secondary">Editar</button>
-                    <button class="eliminar btn btn-danger" type="button" id="eliminar${sub.id}" >Eliminar</button>
+                    <button class="editar btn btn-info" value="${
+                      sub.id
+                    }" type="button" id="editar${
+        sub.id
+      }" class="editar btn btn-secondary">Editar</button>
+                    <button class="eliminar btn btn-danger" type="button" id="eliminar${
+                      sub.id
+                    }" >Eliminar</button>
                 </td>
             </tr>`;
     });
@@ -90,33 +104,28 @@ const mostrar = (listas) => {
   resultado = "";
 };
 
-$body.addEventListener("click", (e) => {
-  console.log(e.target.parentElement.parentElement.id);
+d.addEventListener("click", (e) => {
+  console.log(e.target.parentElement.id);
   if (e.target.classList[0] == "EliminarTarea") {
-    eliminarTarea(e.target.parentElement.parentElement.id);
+    eliminarTarea(e.target.parentElement.parentElement.id).value;
   }
   if (e.target.classList[0] == "agregarSubList") {
-    //console.log(e.path[0].value);
+    console.log(e.path[0].value);
     let dato = {
       nombre: e.target.previousElementSibling.value,
       id: e.path[0].value,
     };
     crearSubLista(dato);
   }
-
-  /**
-   * eliminar subtarea
-   */
   if (e.target.classList[0] == "eliminar") {
+    /** eliminar subtarea*/
     eliminarSubTarea(
       e.target.parentElement.parentElement.children[0].textContent
     );
   }
-  /**
-   * editar subtarea , al pulsar el boton editar , muestra en el input con nombre de la tare actual
-   * me permite
-   */
+
   if (e.target.classList[0] == "editar") {
+    /** editar subtarea , al pulsar el boton editar , muestra en el input con nombre de la tare actual* me permite*/
     e.preventDefault();
     subtarea.id = e.path[0].value;
     subtarea.name = e.path[2].children[1].textContent;
@@ -125,7 +134,7 @@ $body.addEventListener("click", (e) => {
     let input = e.path[5].children[1];
     let btncrear = d.getElementById("crear" + e.path[4].id);
     let boton = d.getElementById("Actualizar" + e.path[4].id);
-    btncrear.style.display = "none";
+    btncrear.style.display = "none"; //mirar esto
     boton.style.display = "";
     console.log(e.path[4]);
     input.value = subtarea.name;
@@ -159,6 +168,7 @@ async function eliminarTarea(id) {
       },
     },
     res = await fetch(`${url}/task/${id}`, options);
+  // json = await res.json();
 
   mostrarList();
 }
@@ -179,6 +189,8 @@ async function crearSubLista({ nombre, id }) {
         }),
       },
       res = await fetch(`${url}/listTask`, options);
+    json = await res.json();
+
     mostrarList();
   } else {
     alert("Ingrese una subLista porfavor!");
@@ -194,13 +206,29 @@ async function crearSubLista({ nombre, id }) {
 
 async function eliminarSubTarea(id) {
   console.log(id);
-  let options = {
-      method: "DELETE",
-      headers: {
-        "Content-type": "application/json; charset=utf-8",
+  if (id) {
+    let options = {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json; charset=utf-8",
+        },
       },
-    },
-    res = await fetch(`${url}/task/${id}`, options);
+      res = await fetch(`${url}/task/${id}`, options);
+    json = await res.json();
 
-  mostrarList();
+    mostrarList();
+  }
 }
+// async function eliminarTarea(id) {
+//   console.log(id);
+//   let options = {
+//       method: "DELETE",
+//       headers: {
+//         "Content-type": "application/json; charset=utf-8",
+//       },
+//     },
+//     res = await fetch(`${url}/task/${id}`, options);
+//   // json = await res.json();
+
+//   mostrarList();
+// }

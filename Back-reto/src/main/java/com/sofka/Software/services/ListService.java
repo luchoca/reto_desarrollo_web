@@ -34,7 +34,7 @@ public class ListService {
     }
 
     /**
-     * verificar si el id esta entonces lo retorne , si no retorne error
+     * verificar si el id esta,entonces lo retorna , si no retorne error
      * @param id
      * @return
      */

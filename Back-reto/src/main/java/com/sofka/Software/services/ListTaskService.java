@@ -17,7 +17,7 @@ public class ListTaskService {
     }
 
     /**
-     * Crea las subTareas en la lisa principal
+     * Crea las subTareas en la lista principal
      * @param listTask
      * @return
      */
@@ -36,7 +36,7 @@ public class ListTaskService {
         listTaskRepository.delete(get(id));
     }
     /**
-     * verificar si el id esta entonces lo retorne , si no retorne error
+     * verificar si el id esta, entonces lo retorne , si no retorne error
      * @param id
      * @return
      */

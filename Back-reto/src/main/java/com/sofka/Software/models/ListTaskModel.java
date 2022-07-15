@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-
+//le saque el unique a el boolean y al name para que se pueda repetir ese tipo de columna
 @Data
 @Entity
 @Table(name = "listaTarea")

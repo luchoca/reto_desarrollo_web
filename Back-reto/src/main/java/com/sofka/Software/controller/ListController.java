@@ -8,24 +8,28 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Slf4j
-@CrossOrigin(origins = {"http://localhost:5500", "http://127.0.0.1:5500"} )
+@CrossOrigin(origins = {"http://localhost:5500", "http://127.0.0.1:5500"})
 @RestController
 public class ListController {
-        @Autowired
-        private ListService listService;
+    @Autowired
+    private ListService listService;
 
-        @GetMapping(value = "/listas")
-        public Iterable<ListModel> list(){
-            return listService.list();
-        }
+    //get
+    @GetMapping(value = "/listas")
+    public Iterable<ListModel> list() {
+        return listService.list();
+    }
 
-        @PostMapping(value = "/task")
-        public ListModel createList(@RequestBody ListModel lista){
-            return listService.createList(lista);
-        }
+    //post
+    @PostMapping(value = "/task")
+    public ListModel createList(@RequestBody ListModel lista) {
+        return listService.createList(lista);
+    }
 
-         @DeleteMapping(value = "/task/{id}")
-         public void deleteTask(@PathVariable("id")Long id){
-             listService.deleteTask(id);
-         }
+    //delete
+    @DeleteMapping(value = "/task/{id}")
+    public void deleteTask(@PathVariable("id") Long id) {
+        listService.deleteTask(id);
+    }
 }
+// esta funcion esta bien

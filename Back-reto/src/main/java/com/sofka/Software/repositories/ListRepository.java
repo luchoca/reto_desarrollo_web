@@ -12,3 +12,4 @@ import javax.swing.*;
  * */
 public interface ListRepository extends JpaRepository<ListModel, Long> {
 }
+ // se implementa jpa repository desp de extends xq es mejor para la paginacion
