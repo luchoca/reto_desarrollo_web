@@ -55,22 +55,12 @@ const mostrar = (listas) => {
                 <td class="id">${sub.id}</td>
                 <td class="Tarea">${sub.name}</td>
                 <td class="completado">
-                    <input class="validar form-check-input" id="validar${
-                      sub.id
-                    }" type="checkbox" id="flexSwitchCheckDefault ${
-        sub.completed ? "checked" : "" //mirar esto
-      }">
+                    <input class="validar form-check-input" id="validar${sub.id}" type="checkbox" id="flexSwitchCheckDefault ${sub.completed ? "checked" : ""}">
                     <label class="form-check-label" for="flexSwitchCheckDefault"></label>
                 </td>
                 <td class="opciones">
-                    <button class="editar btn btn-info" value="${
-                      sub.id
-                    }" type="button" id="editar${
-        sub.id
-      }" class="editar btn btn-secondary">Editar</button>
-                    <button class="eliminar btn btn-danger" type="button" id="eliminar${
-                      sub.id
-                    }" >Eliminar</button>
+                    <button class="editar btn btn-info" value="${sub.id}" type="button" id="editar${sub.id}" class="editar btn btn-secondary ${sub.completed ? "disabled" : ""}">Editar</button>
+                    <button class="eliminar btn btn-danger" type="button" id="eliminar${sub.id}" >Eliminar</button>
                 </td>
             </tr>`;
     });
@@ -104,8 +94,11 @@ const mostrar = (listas) => {
   resultado = "";
 };
 
+
+
+
+
 d.addEventListener("click", (e) => {
-  console.log(e.target.parentElement.id);
   if (e.target.classList[0] == "EliminarTarea") {
     eliminarTarea(e.target.parentElement.parentElement.id).value;
   }
@@ -122,18 +115,30 @@ d.addEventListener("click", (e) => {
     eliminarSubTarea(
       e.target.parentElement.parentElement.children[0].textContent
     );
-  }
+
+
+
+
+
+  }if(e.target.classList[0] == "actualizarSubList"){
+    let newName = e.path[1].querySelector(".form-control").value
+    // console.log(e.target.parentElement.id,"se ejecuto eventoclick");
+    actualizar(subtarea.idpadre, subtarea.id, newName);
+}
+
+
+
+
   if (e.target.classList[0] == "editar") {
     /** editar subtarea , al pulsar el boton editar , muestra en el input con nombre de la tare actual* me permite*/
     e.preventDefault();
     subtarea.id = e.path[0].value;
     subtarea.name = e.path[2].children[1].textContent;
     subtarea.idpadre = e.path[4].id;
-
     let input = e.path[5].children[1];
     let btncrear = d.getElementById("crear" + e.path[4].id);
     let boton = d.getElementById("Actualizar" + e.path[4].id);
-    btncrear.style.display = "none"; //mirar esto
+    btncrear.style.display = "none";
     boton.style.display = "";
     console.log(e.path[4]);
     input.value = subtarea.name;
@@ -154,7 +159,10 @@ d.addEventListener("click", (e) => {
     } else {
       btnvalidar.disabled = false;
     }
+ 
   }
+    
+
 });
 
 //funcion eliminar , recibe como parametro el ID
@@ -207,10 +215,74 @@ async function eliminarSubTarea(id) {
 
   mostrarList();
 }
+async function actualizar(idLista, idTarea, nombre) {
+    if (nombre) {
+        let options = {
+                method: "PUT",
+                headers: {
+                    "Content-type": "application/json; charset=utf-8"
+                },
+                body: JSON.stringify({
+                    completed: false,
+                    name: nombre,
+                    listaid: {
+                        id: idLista
+                    }
+                })
+            },
+            res = await fetch(`${url}/listTask/${idTarea}`, options)
+        mostrarList()
+    }
+}
 
-/**
- * Editar sub lista
- * @param {*} id1
- * @param {*} id2
- * @param {*} nombre
- */
+
+
+
+
+// async function actualizar(nombre, listId, taskId, tareaCompleta) {
+//   //creamos func actualizar y le damos paremostros
+//   let options = {
+//       method: "PUT",
+//       headers: {
+//         "Content-type": "application/json; charset=utf-8",
+//       },
+//       body: JSON.stringify({
+//         completed: tareaCompleta,
+//         name: nombre,
+//         listaid: {
+//           id: listId,
+//         },
+//       }),
+//     },
+//     res = await fetch(`${url}/listTask/${taskId}`, options);
+//   // json = await res.json();
+
+//   mostrarList();
+// }
+  //  // let nameT = e.path[2].children[1].textContent;
+  //   // let idP = e.path[4].id;
+  //   // let subT = e.path[2].children[3].children[0].value;
+  //   // let valido = btnvalidar.disabled;
+  //   // console.log("aca estoy", nameT, idP, subT, valido);
+  //   // actualizar(nameT, idP, subT, valido);
+
+
+  //   if (e.target.classList[0] == "actualizarSubList") {
+  //     const nameTask = e.path[2].children[1].querySelector(".form-control").value;
+  //     // let completado = subtarea.completed
+  //     console.log(completado);
+  //     actualizar(nameTask, subtarea.idpadre, subtarea.id, false);
+  //   }
+
+
+
+
+
+
+
+
+
+
+//   if(e.target.classList[0] == "actualizarSubList"){
+//     modificarSubLista(subtarea.idpadre, subtarea.id, e.target.previousElementSibling.previousElementSibling.value, subtarea.completed);
+// }

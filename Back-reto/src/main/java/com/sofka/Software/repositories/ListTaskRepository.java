@@ -10,6 +10,5 @@ import org.springframework.stereotype.Repository;
  * Implementa JpaRepository en lugar de CrudRepository !!Important¡¡¡¡
  * */
 @Repository
-
 public interface ListTaskRepository extends JpaRepository<ListTaskModel, Long> {
 }

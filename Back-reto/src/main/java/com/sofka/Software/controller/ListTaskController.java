@@ -35,6 +35,6 @@ public class ListTaskController {
 
      @DeleteMapping(path = "/listTask/{id}")
      public void deletelistTask(@PathVariable(value = "id")Long id){
-         listTaskService.deleteListTask(id); //vlaue en el path
+         listTaskService.deleteListTask(id); //value en el path
     }
 }

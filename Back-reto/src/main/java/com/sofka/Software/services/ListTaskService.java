@@ -27,7 +27,7 @@ public class ListTaskService {
     }
 
     /**
-     * metodo eliminar subtarea
+     * metodo eliminar subtarea++
      *
      * @param id
      */
