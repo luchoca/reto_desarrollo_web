@@ -123,7 +123,7 @@ d.addEventListener("click", (e) => {
   }if(e.target.classList[0] == "actualizarSubList"){
     let newName = e.path[1].querySelector(".form-control").value
     // console.log(e.target.parentElement.id,"se ejecuto eventoclick");
-    actualizar(subtarea.idpadre, subtarea.id, newName);
+    actualizar(subtarea.idpadre, subtarea.id,newName);
 }
 
 
@@ -234,55 +234,3 @@ async function actualizar(idLista, idTarea, nombre) {
         mostrarList()
     }
 }
-
-
-
-
-
-// async function actualizar(nombre, listId, taskId, tareaCompleta) {
-//   //creamos func actualizar y le damos paremostros
-//   let options = {
-//       method: "PUT",
-//       headers: {
-//         "Content-type": "application/json; charset=utf-8",
-//       },
-//       body: JSON.stringify({
-//         completed: tareaCompleta,
-//         name: nombre,
-//         listaid: {
-//           id: listId,
-//         },
-//       }),
-//     },
-//     res = await fetch(`${url}/listTask/${taskId}`, options);
-//   // json = await res.json();
-
-//   mostrarList();
-// }
-  //  // let nameT = e.path[2].children[1].textContent;
-  //   // let idP = e.path[4].id;
-  //   // let subT = e.path[2].children[3].children[0].value;
-  //   // let valido = btnvalidar.disabled;
-  //   // console.log("aca estoy", nameT, idP, subT, valido);
-  //   // actualizar(nameT, idP, subT, valido);
-
-
-  //   if (e.target.classList[0] == "actualizarSubList") {
-  //     const nameTask = e.path[2].children[1].querySelector(".form-control").value;
-  //     // let completado = subtarea.completed
-  //     console.log(completado);
-  //     actualizar(nameTask, subtarea.idpadre, subtarea.id, false);
-  //   }
-
-
-
-
-
-
-
-
-
-
-//   if(e.target.classList[0] == "actualizarSubList"){
-//     modificarSubLista(subtarea.idpadre, subtarea.id, e.target.previousElementSibling.previousElementSibling.value, subtarea.completed);
-// }
